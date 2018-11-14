@@ -45,17 +45,17 @@ if __name__ == "__main__":
     print('You entered:  ' + certFilename)
 
     # Collect data from files
-    jobdata = getData(jobFilename)[0]
+    jobdata = getData('CSVdata/'+jobFilename)[0]
 
     # Open certification file
-    certData = getData(certFilename)
+    certData = getData('CSVdata/'+certFilename)
     # print(certData)
     # print(jobdata)
     x = 0
     while x != len(certData):
         certPackage = certData[x]
         # print(certPackage)
-        doc = FiveYrCertMaker(jobdata[0] + '_C' + certNum(certPackage[0]) + ' - ' + certPackage[2] + '.pdf', jobdata, certPackage)
+        doc = FiveYrCertMaker('output/'+jobdata[0] + '_C' + certNum(certPackage[0]) + ' - ' + certPackage[2] + '.pdf', jobdata, certPackage)
         doc.createDocument()
         doc.savePDF()
         x += 1

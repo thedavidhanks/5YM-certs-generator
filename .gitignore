@@ -1,3 +1,5 @@
 #Untracked files
-/output
-/__pycache__
+output/*
+__pycache__
+CSVdata/*
+img/signatures/*
