@@ -1,4 +1,5 @@
 import csv
+import os.path
 from export_pdf import FiveYrCertMaker
 
 '''
@@ -39,9 +40,19 @@ if __name__ == "__main__":
     # certFilename = 'testdata.csv'
 
     ''' Production request for filenames to target'''
-    jobFilename = input('Enter the target CSV file name for JOB DATA: ')
-    print('You entered:  ' + jobFilename)
-    certFilename = input('Enter the target CSV file name for CERTIFICATION DATA: ')
+    jobFilename = input('Enter the target CSV file name for JOB DATA [jobdata.csv]: ')
+    if not jobFilename:
+        jobFilename = 'jobdata.csv'
+    while not os.path.isfile('CSVdata/'+jobFilename):
+        print(jobFilename+'file could be found.  Try again')
+        jobFilename = input('Enter the target CSV file name for JOB DATA [jobdata.csv]: ')
+        if not jobFilename:
+            jobFilename = 'jobdata.csv'
+    print(jobFilename+' located')
+    certFilename = input('Enter the target CSV file name for EQUIPMENT DATA: ')
+    while not os.path.isfile('CSVdata/'+certFilename):
+        print(certFilename+' could be found.  Try again.')
+        certFilename = input('Enter the target CSV file name for EQUIPMENT DATA: ')
     print('You entered:  ' + certFilename)
 
     # Collect data from files
