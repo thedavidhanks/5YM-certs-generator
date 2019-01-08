@@ -52,24 +52,23 @@ class FiveYrCertMaker(object):
         self.c = canvas.Canvas(pdf_file, pagesize=letter)
         self.styles = getSampleStyleSheet()
         self.width, self.height = letter
-        self.organization = job[2]
-        self.job = job[0]
+        self.organization = job['clientName']
+        self.job = job['project']
         self.report = self.certNum(data[0])
-        self.revision = job[1]
+        self.revision = job['revision']
         self.jobdata = job
         self.certdata = data
 
         '''
         Job specific data entry for signature blocks
         '''
-        self.Witness = 'James Bethea'
-        self.Engineering = 'Ben Madison'
+        self.Witness = job['OTCwitness']['name']
+        self.Engineering = job['OTCapprover']['name']
 
     # ----------------------------------------------------------------------
     def createDocument(self):
         """"""
         voffset = 30
-
 
         # create header data
         header = """<font size="9">
@@ -124,7 +123,6 @@ class FiveYrCertMaker(object):
         table.wrapOn(self.c, self.width, self.height)
         table.drawOn(self.c, *self.coord(15, voffset + 80, mm))
 
-
         # create second table
         data = self.dataPrepTable2(self.certdata)
         table = Table(data, colWidths=3.6 * inch)
@@ -145,7 +143,6 @@ class FiveYrCertMaker(object):
                             ('BOX', (0, 0), (-1, -1), 0.25, colors.black)])
         table.wrapOn(self.c, self.width, self.height)
         table.drawOn(self.c, *self.coord(15, voffset + 130, mm))
-
 
         # # create third table
         # data = self.dataPrepTable3(self.certdata)
@@ -173,7 +170,7 @@ class FiveYrCertMaker(object):
         table.drawOn(self.c, *self.coord(15, voffset + 200, mm))
 
         # add in signatures
-        logo = Image("img/signatures/sigJames.png")
+        logo = Image("img/signatures/sigGriffitt.png")
         logo.drawHeight = .5 * inch
         logo.drawWidth = 1.5 * inch
         logo.wrapOn(self.c, self.width, self.height)
@@ -255,12 +252,12 @@ class FiveYrCertMaker(object):
     def dataPrepTable1(self, jobinfo, info):
         data = [[self.tableHeading('<b>Inspection Data</b>', TableHeaderStyle), ''],
                 [self.tableHeading('<b>Equipment Owner</b>'), self.organization],
-                [self.tableHeading('<b>Date(s) of Inspection</b>'), jobinfo[3]],
-                [self.tableHeading('<b>Inspection Location</b>'), jobinfo[4]],
-                [self.tableHeading('<b>Technician(s)</b>'), self.techName(jobinfo)],
-                [self.tableHeading('<b>3rd Party Witness</b>'), self.witnessName(jobinfo)],
+                [self.tableHeading('<b>Date(s) of Inspection</b>'), jobinfo['releaseDate']],
+                [self.tableHeading('<b>Inspection Location</b>'), jobinfo['inspectionLocation']],
+                [self.tableHeading('<b>Technician(s)</b>'), self.techNameFromJson(jobinfo)],
+                [self.tableHeading('<b>3rd Party Witness</b>'), jobinfo['OTCwitness']['name']],
                 [self.tableHeading('<b>Inspection Procedure Performed</b>'), info[7]],
-                [self.tableHeading('<b>5 Year Maintenance Report</b>', TableHeaderStyle), jobinfo[0]+'_5YR']
+                [self.tableHeading('<b>5 Year Maintenance Report</b>', TableHeaderStyle), jobinfo['project']+'_5YR']
                 ]
         return data
 
@@ -327,38 +324,15 @@ class FiveYrCertMaker(object):
         if out == 'MISSING':
             print('\n\nERROR! Equipment Type missing on Certificate # ' + dataIn[0] + '\n\n')
         return out
-
-
-    def techName(self, dataIn):
+    
+    def techNameFromJson(self, dataIn):
         out = ''
-        startNames = 5  # Beginning of names in csv file
-        technicians = dataIn[startNames:startNames + int(dataIn[-1])]
-        x = 0
-        nameLen = len(technicians)
-        while x != nameLen:
-            out = out + technicians[x]
-            if x < nameLen-1:
-                out += ', '
-            x += 1
+        for name in dataIn['clientTechnicians']:
+            if out == '':
+                out = name
+            else:
+                out += ', ' + name
         return out
-
-    def witnessName(self, dataIn):
-        numNames = len(dataIn) - 5 - int(dataIn[-1]) - 1
-        if numNames == 1:
-            return dataIn[5 + int(dataIn[-1])]
-        else:
-            out = ''
-            startNames = 5  # Beginning of names in csv file
-            length = len(dataIn)
-            witnesses = dataIn[startNames + int(dataIn[-1]):length-1]
-            x = 0
-            nameLen = len(witnesses)
-            while x != nameLen:
-                out = out + witnesses[x]
-                if x < nameLen - 1:
-                    out += ', '
-                x += 1
-            return out
 
     def certNum(self, number):
         if len(number) == 1:
@@ -369,8 +343,6 @@ class FiveYrCertMaker(object):
             return number
         else:
             return number
-
-
 
             # if __name__ == "__main__":
 #     doc = FiveYrCertMaker(jobdata[0]+'_C'+testdata[0]+' - ' + testdata[2]+'.pdf', jobdata, testdata)

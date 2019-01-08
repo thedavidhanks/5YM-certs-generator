@@ -1,4 +1,5 @@
 import csv
+import json
 import os.path
 from export_pdf import FiveYrCertMaker
 
@@ -36,27 +37,31 @@ if __name__ == "__main__":
     # Ask user for file names
 
     # Hard coded filenames for test. Comemented out in production
-    # jobFilename = 'jobdata.csv'
+    # jobFilename = 'jobdata.json'
     # certFilename = 'testdata.csv'
-
+    
     ''' Production request for filenames to target'''
-    jobFilename = input('Enter the target CSV file name for JOB DATA [jobdata.csv]: ')
+    jobDataInputQ = 'Enter the target JSON file name for JOB DATA [jobdata.json]: '
+    defaultJsonFile = 'jobdata.json'
+    jobFilename = input(jobDataInputQ)
     if not jobFilename:
-        jobFilename = 'jobdata.csv'
+        jobFilename = defaultJsonFile
     while not os.path.isfile('CSVdata/'+jobFilename):
-        print(jobFilename+'file could be found.  Try again')
-        jobFilename = input('Enter the target CSV file name for JOB DATA [jobdata.csv]: ')
+        print(jobFilename+' could not be found.  Try again')
+        jobFilename = input(jobDataInputQ)
         if not jobFilename:
-            jobFilename = 'jobdata.csv'
+            jobFilename = defaultJsonFile
     print(jobFilename+' located')
     certFilename = input('Enter the target CSV file name for EQUIPMENT DATA: ')
     while not os.path.isfile('CSVdata/'+certFilename):
-        print(certFilename+' could be found.  Try again.')
+        print(certFilename+' could not be found.  Try again.')
         certFilename = input('Enter the target CSV file name for EQUIPMENT DATA: ')
     print('You entered:  ' + certFilename)
 
     # Collect data from files
-    jobdata = getData('CSVdata/'+jobFilename)[0]
+    #jobdata = getData('CSVdata/'+jobFilename)[0]
+    with open('CSVdata/'+jobFilename) as file:
+        jobdata = json.load(file)
 
     # Open certification file
     certData = getData('CSVdata/'+certFilename)
@@ -66,7 +71,7 @@ if __name__ == "__main__":
     while x != len(certData):
         certPackage = certData[x]
         # print(certPackage)
-        doc = FiveYrCertMaker('output/'+jobdata[0] + '_C' + certNum(certPackage[0]) + ' - ' + certPackage[2] + '.pdf', jobdata, certPackage)
+        doc = FiveYrCertMaker('output/'+jobdata['project'] + '_C' + certNum(certPackage[0]) + ' - ' + certPackage[2] + '.pdf', jobdata, certPackage)
         doc.createDocument()
         doc.savePDF()
         x += 1

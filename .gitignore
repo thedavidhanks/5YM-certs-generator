@@ -1,5 +1,6 @@
 #Untracked files
-output/*
 __pycache__
 CSVdata/*
-img/signatures/*
+
+#Tracked files
+!CSVdata/jobdata.json

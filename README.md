@@ -1,15 +1,16 @@
-#5 YEAR MAINTENACE CERTIFICATE GENERATOR
+# 5 YEAR MAINTENACE CERTIFICATE GENERATOR
 
 This generates certificates for 5 year maintenance required by the Code of Federal Regulations.
 
-1. Clone the repository,
-2. Update the signatures,
-3. Supply a jobdata.csv and equipment.csv within CSVdata folder
+1. Clone the repository
+2. Update the jobdata.json file within the CSVdata
+3. Create an equipment.csv within CSVdata folder (format below)
 4. from the command line run runCertMaker.py  (python runCertMaker.py)
 5. Follow the prompts
 6. Files will be in output folder
 
-equipment.csv shall be formatted as follows:  
+## equipment.csv
+each row of the equipment.csv shall be formatted as follows:  
 id,equipment name, GSI#, OEM, OEM Model#, OEM Serial #, Pressure rating, Inspection Procedure
 
 EX.  equipment.csv  
@@ -17,5 +18,23 @@ EX.  equipment.csv
 7,	DOUBLE WING: 2" 1502 15M,	19165,	MSI,	DA0071,	A486171,	15M,	QMSF-2041-5Y  
 9,	DOUBLE WING: 2" 1502 15M,	7798,	FMC,	3257099,	09240200W019,	15M,	QMSF-2041-5Y
 
-jobdata.csv shall be formatted as follows:  
-Job Number, Certificate Revision Number, Client, Dates, Location, Technician 1, [Technician 2, [Technician 3, etc.]], Witness, Total Technicians listed
+## jobdata.json
+Example jobdata.json
+~~~~
+{
+    "project": "5YM_GSI_190107",
+    "revision": "00",
+    "clientName": "Gulfstream Services Inc.",
+    "releaseDate": "8-Jan-19",
+    "inspectionLocation": "Houma Rental Facility",
+    "clientTechnicians": ["Edward Skinner","Joseph Allen","Justin Neil"],
+    "OTCwitness": {
+        "name": "John Griffitt",
+        "signatureFile": "sigGriffitt.png"
+    },
+    "OTCapprover": {
+        "name": "David Hanks",
+        "signatureFile": "sigHanks.png"
+    }
+}
+~~~~
