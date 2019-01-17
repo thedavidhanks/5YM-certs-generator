@@ -64,6 +64,9 @@ class FiveYrCertMaker(object):
         '''
         self.Witness = job['OTCwitness']['name']
         self.Engineering = job['OTCapprover']['name']
+        self.WitnessSig = job['OTCwitness']['signatureFile']
+        self.EngineeringSig = job['OTCapprover']['signatureFile']
+        
 
     # ----------------------------------------------------------------------
     def createDocument(self):
@@ -79,9 +82,9 @@ class FiveYrCertMaker(object):
         p = Paragraph(header, myStyle)
 
         # create header logo and size it
-        logo = Image("img/image1.jpeg")
+        logo = Image("img/image1.png")
         logo.drawHeight = 0.75 * inch
-        logo.drawWidth = 2.64 * inch
+        logo.drawWidth = 3.43 * inch
 
         # combine logo and header data into array for table creation
         data = [[logo, p]]
@@ -100,7 +103,7 @@ class FiveYrCertMaker(object):
 
         # create body text of the certificate and style
         ptext = """
-        <b><i>OTC Solutions, LLC</i></b> was present for the following 5 Year Maintenance Inspection as
+        <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection as
          required in the <i>Code of Federal Regulations</i> requirement per <b>30 CFR §250.739 (b)</b>. 
          The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
          manufacture’s guidelines.
@@ -170,20 +173,20 @@ class FiveYrCertMaker(object):
         table.drawOn(self.c, *self.coord(15, voffset + 200, mm))
 
         # add in signatures
-        logo = Image("img/signatures/sigGriffitt.png")
+        logo = Image("img/signatures/"+self.WitnessSig)
         logo.drawHeight = .5 * inch
         logo.drawWidth = 1.5 * inch
         logo.wrapOn(self.c, self.width, self.height)
         logo.drawOn(self.c, *self.coord(65, voffset + 187, mm))
 
-        logo = Image("img/signatures/sigHanks.png")
+        logo = Image("img/signatures/"+self.EngineeringSig)
         logo.drawHeight = .5 * inch
         logo.drawWidth = 1.5 * inch
         logo.wrapOn(self.c, self.width, self.height)
         logo.drawOn(self.c, *self.coord(65, voffset + 202, mm))
 
         # create footer area (table)
-        data = [['www.otc-solutions.com', 'PROPRIETARY/CONFIDENTIAL', '1']]
+        data = [['www.otcompliance.com', 'PROPRIETARY/CONFIDENTIAL', '1']]
         table = Table(data, colWidths=(2.7 * inch, 2.7 * inch, 2.7 * inch))
         table.setStyle([("VALIGN", (0, 0), (0, 0), "TOP"),
                         ("ALIGN", (1, 0), (1, 0), "CENTER"),
