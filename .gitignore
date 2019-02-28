@@ -2,5 +2,4 @@
 __pycache__
 CSVdata/*
 
-#Tracked files
-!CSVdata/jobdata.json
+#Tracked files - prepend files with !
