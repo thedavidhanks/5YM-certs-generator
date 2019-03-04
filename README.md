@@ -2,12 +2,18 @@
 
 This generates certificates for 5 year maintenance required by the Code of Federal Regulations.
 
-1. Clone the repository
-2. Update the jobdata.json file within the CSVdata
-3. Create an equipment.csv within CSVdata folder (format below)
-4. from the command line run runCertMaker.py  (python runCertMaker.py)
-5. Follow the prompts
-6. Files will be in output folder
+1. Install python 3.7 or higher ([download](https://www.python.org/downloads/))
+2. Install [pip](https://pypi.org/project/pip/)
+3. Install [reportlab](https://pypi.org/project/reportlab/)
+~~~
+lab pip install reportlab
+~~~
+4. Clone the repository
+5. Update the jobdata.json file within the CSVdata
+6. Create an equipment.csv within CSVdata folder (format below)
+7. from the command line run runCertMaker.py  (python runCertMaker.py)
+8. Follow the prompts
+9. Files will be in output folder
 
 ## equipment.csv
 each row of the equipment.csv shall be formatted as follows:  
