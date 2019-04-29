@@ -103,8 +103,7 @@ class FiveYrCertMaker(object):
 
         # create body text of the certificate and style
         ptext = """
-        <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection as
-         required in the <i>Code of Federal Regulations</i> requirement per <b>30 CFR §250.739 (b)</b>. 
+        <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection of the equipment listed below. 
          The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
          manufacture’s guidelines.
         """ % self.organization
