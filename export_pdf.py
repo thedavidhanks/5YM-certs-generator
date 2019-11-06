@@ -106,14 +106,14 @@ class FiveYrCertMaker(object):
         if self.isRemote == 'no':
             ptext = """
             <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection of the equipment listed below. 
-             The inspections were conducted per <b>%sâ€™s</b> Preventative Maintenance (PM) program and the equipment 
-             manufactureâ€™s guidelines.
+             The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
+             manufacture’s guidelines.
             """ % self.organization
         else:
             ptext = """
             <b><i>Offshore Technical Compliance LLC</i></b> has verified the following 5 Year Maintenance Inspection of the equipment listed below. 
-             The inspections were conducted per <b>%sâ€™s</b> Preventative Maintenance (PM) program and the equipment 
-             manufactureâ€™s guidelines.
+             The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
+             manufacture’s guidelines.
             """ % self.organization
         p = Paragraph(ptext, self.styles["Normal"])
         p.wrapOn(self.c, self.width - 70, self.height)
