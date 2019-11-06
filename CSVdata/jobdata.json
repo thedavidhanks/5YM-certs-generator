@@ -4,6 +4,7 @@
     "clientName": "Gulfstream Services Inc.",
     "releaseDate": "Feb 25 - March 1, 2019",
     "inspectionLocation": "Houma Rental Facility",
+    "isRemote": "yes"
     "clientTechnicians": ["Joseph Allen", "Justin Neil", "Edward Skinner"],
     "OTCwitness": {
         "name": "Evan Smith",
