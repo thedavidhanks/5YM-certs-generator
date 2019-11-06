@@ -33,7 +33,7 @@ Example jobdata.json
     "clientName": "Gulfstream Services Inc.",
     "releaseDate": "8-Jan-19",
     "inspectionLocation": "Houma Rental Facility",
-    "isRemote": "yes"
+    "isRemote": "yes",
     "clientTechnicians": ["Edward Skinner","Joseph Allen","Justin Neil"],
     "OTCwitness": {
         "name": "John Griffitt",
