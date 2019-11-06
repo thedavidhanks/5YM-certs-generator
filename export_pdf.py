@@ -58,6 +58,7 @@ class FiveYrCertMaker(object):
         self.revision = job['revision']
         self.jobdata = job
         self.certdata = data
+        self.isRemote = job['isRemote']
 
         '''
         Job specific data entry for signature blocks
@@ -102,11 +103,18 @@ class FiveYrCertMaker(object):
         self.createParagraph(ptext, 0, voffset + 8, TitleStyle)
 
         # create body text of the certificate and style
-        ptext = """
-        <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection of the equipment listed below. 
-         The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
-         manufacture’s guidelines.
-        """ % self.organization
+        if self.isRemote == 'no':
+            ptext = """
+            <b><i>Offshore Technical Compliance LLC</i></b> was present for the following 5 Year Maintenance Inspection of the equipment listed below. 
+             The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
+             manufacture’s guidelines.
+            """ % self.organization
+        else:
+            ptext = """
+            <b><i>Offshore Technical Compliance LLC</i></b> has verified the following 5 Year Maintenance Inspection of the equipment listed below. 
+             The inspections were conducted per <b>%s’s</b> Preventative Maintenance (PM) program and the equipment 
+             manufacture’s guidelines.
+            """ % self.organization
         p = Paragraph(ptext, self.styles["Normal"])
         p.wrapOn(self.c, self.width - 70, self.height)
         p.drawOn(self.c, *self.coord(15, voffset + 25, mm))
@@ -159,10 +167,16 @@ class FiveYrCertMaker(object):
         # table.drawOn(self.c, *self.coord(15, voffset + 167, mm))
 
         # create signature area (table)
-        data = [['Witness:', self.Witness, 'Date:', datetime.date.today().strftime('%d %b %Y')],
-                [],
-                ['Engineering Approval:', self.Engineering, 'Date:', datetime.date.today().strftime('%d %b %Y')]
-                ]
+        if self.isRemote == 'no':
+            data = [['Witness:', self.Witness, 'Date:', datetime.date.today().strftime('%d %b %Y')],
+                    [],
+                    ['Engineering Approval:', self.Engineering, 'Date:', datetime.date.today().strftime('%d %b %Y')]
+                    ]
+        else:
+             data = [['Verification:', self.Witness, 'Date:', datetime.date.today().strftime('%d %b %Y')],
+                    [],
+                    ['Engineering Approval:', self.Engineering, 'Date:', datetime.date.today().strftime('%d %b %Y')]
+                    ]
         table = Table(data, colWidths=(1.5 * inch, 3.75 * inch, 0.6 * inch, 1.35 * inch))
         table.setStyle([("VALIGN", (0, 0), (0, 0), "TOP"),
                         ("ALIGN", (0, 0), (0, 1), "RIGHT"),
