@@ -9,7 +9,7 @@ This generates certificates for 5 year maintenance required by the Code of Feder
 lab pip install reportlab
 ~~~
 4. Clone the repository
-5. Update the jobdata.json file within the CSVdata
+5. Update the jobdata.json file within the CSVdata (isRemote: "yes" or "no")
 6. Create an equipment.csv within CSVdata folder (format below)
 7. from the command line run runCertMaker.py  (python runCertMaker.py)
 8. Follow the prompts
@@ -33,6 +33,7 @@ Example jobdata.json
     "clientName": "Gulfstream Services Inc.",
     "releaseDate": "8-Jan-19",
     "inspectionLocation": "Houma Rental Facility",
+    "isRemote": "yes"
     "clientTechnicians": ["Edward Skinner","Joseph Allen","Justin Neil"],
     "OTCwitness": {
         "name": "John Griffitt",
