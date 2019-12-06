@@ -266,12 +266,13 @@ class FiveYrCertMaker(object):
     # ----------------------------------------------------------------------
 
     def dataPrepTable1(self, jobinfo, info):
+        witnessText = ("Verifier","Witness")[self.isRemote == 'no']
         data = [[self.tableHeading('<b>Inspection Data</b>', TableHeaderStyle), ''],
                 [self.tableHeading('<b>Equipment Owner</b>'), self.organization],
                 [self.tableHeading('<b>Date(s) of Inspection</b>'), jobinfo['releaseDate']],
                 [self.tableHeading('<b>Inspection Location</b>'), jobinfo['inspectionLocation']],
                 [self.tableHeading('<b>Technician(s)</b>'), self.techNameFromJson(jobinfo)],
-                [self.tableHeading('<b>3rd Party Witness</b>'), jobinfo['OTCwitness']['name']],
+                [self.tableHeading('<b>3rd Party '+witnessText+'</b>'), jobinfo['OTCwitness']['name']],
                 [self.tableHeading('<b>Inspection Procedure Performed</b>'), info[7]],
                 [self.tableHeading('<b>5 Year Maintenance Report</b>', TableHeaderStyle), jobinfo['project']+'_5YR']
                 ]
