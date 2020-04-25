@@ -269,7 +269,7 @@ class FiveYrCertMaker(object):
         witnessText = ("Verifier","Witness")[self.isRemote == 'no']
         data = [[self.tableHeading('<b>Inspection Data</b>', TableHeaderStyle), ''],
                 [self.tableHeading('<b>Equipment Owner</b>'), self.organization],
-                [self.tableHeading('<b>First 5YR Inspection</b>'), info[8]],
+                [self.tableHeading('<b>Inspection start date</b>'), info[8]],
                 [self.tableHeading('<b>Inspection Location</b>'), jobinfo['inspectionLocation']],
                 [self.tableHeading('<b>Technician(s)</b>'), self.techNameFromJson(jobinfo)],
                 [self.tableHeading('<b>3rd Party '+witnessText+'</b>'), jobinfo['OTCwitness']['name']],
