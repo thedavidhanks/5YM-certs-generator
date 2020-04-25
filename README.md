@@ -6,7 +6,7 @@ This generates certificates for 5 year maintenance required by the Code of Feder
 2. Install [pip](https://pypi.org/project/pip/)
 3. Install [reportlab](https://pypi.org/project/reportlab/)
 ~~~
-lab pip install reportlab
+pip install reportlab
 ~~~
 4. Clone the repository
 5. Update the jobdata.json file within the CSVdata (isRemote: "yes" or "no")
@@ -17,12 +17,12 @@ lab pip install reportlab
 
 ## equipment.csv
 each row of the equipment.csv shall be formatted as follows:  
-id,equipment name, GSI#, OEM, OEM Model#, OEM Serial #, Pressure rating, Inspection Procedure
+id,equipment name, GSI#, OEM, OEM Model#, OEM Serial #, Pressure rating, Inspection Procedure, earliest inspection
 
 EX.  equipment.csv  
-6,	DOUBLE WING: 2" 1502 15M,	20284,	FMC,	3257099,	09230800W017,	15M,	QMSF-2041-5Y  
-7,	DOUBLE WING: 2" 1502 15M,	19165,	MSI,	DA0071,	A486171,	15M,	QMSF-2041-5Y  
-9,	DOUBLE WING: 2" 1502 15M,	7798,	FMC,	3257099,	09240200W019,	15M,	QMSF-2041-5Y
+6,	DOUBLE WING: 2" 1502 15M,	20284,	FMC,	3257099,	09230800W017,	15M,	QMSF-2041-5Y, 9/23/2019  
+7,	DOUBLE WING: 2" 1502 15M,	19165,	MSI,	DA0071,	A486171,	15M,	QMSF-2041-5Y, 10/18/2019  
+9,	DOUBLE WING: 2" 1502 15M,	7798,	FMC,	3257099,	09240200W019,	15M,	QMSF-2041-5Y, 1/1/2020
 
 ## jobdata.json
 Example jobdata.json
